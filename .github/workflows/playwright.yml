@@ -22,7 +22,7 @@ jobs:
       run: npx playwright test 
       env:
         CI: true
-        BASE_URL:  ${{ env.BASE_URL }}
+        BASE_URL:  ${{ vars.BASE_URL }}
         USERNAME: ${{ secrets.USERNAME }}
         PASSWORD: ${{ secrets.PASSWORD }}
     - uses: actions/upload-artifact@v4
