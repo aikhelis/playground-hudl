@@ -6,7 +6,7 @@ on:
 
 jobs:
   test:
-    environment: PRODUCTION
+    environment: Production
     timeout-minutes: 5
     runs-on: ubuntu-latest
     steps:
