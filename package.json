@@ -1,0 +1,26 @@
+{
+  "name": "playground-hudl",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aikhelis/playground-hudl.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/aikhelis/playground-hudl/issues"
+  },
+  "homepage": "https://github.com/aikhelis/playground-hudl#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.50.1",
+    "@types/node": "^22.13.5"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7"
+  }
+}
