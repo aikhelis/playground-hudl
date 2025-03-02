@@ -7,7 +7,7 @@ const baseUrl = process.env.BASE_URL + "login";
 test("Successful login with valid credentials", async ({ page }) => {
   await page.goto(baseUrl);
   // Use environment variables to manage sensitive credentials securely
-  const username: string = "" + process.env.USER_NAME;
+  const username: string = "" + process.env.USERNAME;
   const password: string = "" + process.env.PASSWORD;
 
   await page.fill("input#username", username);

@@ -8,7 +8,7 @@ import dotenv from "dotenv";
 import path from "path";
 dotenv.config({ path: path.resolve(__dirname, ".env.local") });
 
-if (!process.env.BASE_URL || !process.env.USER_NAME || !process.env.PASSWORD)
+if (!process.env.BASE_URL || !process.env.USERNAME || !process.env.PASSWORD)
   throw `ERROR: Provide base URL, test users and passwords for the current environment. See README for more details.`;
 
 /**
@@ -25,14 +25,16 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: "list",
+  reporter: process.env.CI
+    ? [["list"], ["github"], ["html", { open: "never" }]]
+    : "list",
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
     baseURL: "" + process.env.BASE_URL,
 
-    /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: "on-first-retry",
+    /* Collect trace for all test runs. See https://playwright.dev/docs/trace-viewer */
+    trace: process.env.CI ? "on" : "off",
   },
 
   /* Configure projects for major browsers */
