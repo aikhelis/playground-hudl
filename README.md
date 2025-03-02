@@ -71,7 +71,7 @@ For example, the following can be anticipated:
 - test data management approaches (stubbing/mocking for client-side logic tests or against 3rd party services, data seeding/tidyup for full e2e tests, etc), data abstraction layer, api steps library, etc
 
 ## CI/CD
-Initial (GHA workflow)[https://github.com/aikhelis/playground-hudl/actions/workflows/playwright.yml] for playwright tests with:
+Initial [GHA workflow](https://github.com/aikhelis/playground-hudl/actions/workflows/playwright.yml) for playwright tests with:
 - trigerred on workflow-dispatch and on push to main
 - injects user creds from GH repository secrets
 - runs tests against Production
