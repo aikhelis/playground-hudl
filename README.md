@@ -42,16 +42,16 @@ _This report aids to illustrate the thought process behind test design. It's aut
 
 ### Authn & Authz
 
-| Category          | Scenarios                                                                                  | Automated |
-|-------------------|--------------------------------------------------------------------------------------------|-----------|
-| Happy-path        | Successful log in with valid credentials                                                   |  ✅       |
-|                   | Edit email as a detached user flow step                                                    | ![Pending](https://img.icons8.com/material-outlined/24/000000/unchecked-checkbox.png) |
-| Form validation   | Error message when using invalid password for a registered email                           | ![Pending](https://img.icons8.com/material-outlined/24/000000/unchecked-checkbox.png) |
-|                   | Error message when using a not registered email with a valid password from another account | ![Pending](https://img.icons8.com/material-outlined/24/000000/unchecked-checkbox.png) |
-|                   | Error message when email is missing (password field isn't available)                       | ![Pending](https://img.icons8.com/material-outlined/24/000000/unchecked-checkbox.png) |
-|                   | Error message when password is missing                                                     | ![Pending](https://img.icons8.com/material-outlined/24/000000/unchecked-checkbox.png) |
-| Web form security | SQL Injection attempt in username field                                                    | ![Pending](https://img.icons8.com/material-outlined/24/000000/unchecked-checkbox.png) |
-|                   | XSS attempt in username field                                                              | ![Pending](https://img.icons8.com/material-outlined/24/000000/unchecked-checkbox.png) |
+| Category          | Scenario                                           | Automated |
+|-------------------|----------------------------------------------------|-----------|
+| Happy-path        | Successful login and logout with valid credentials | ✅        |
+|                   | Successful login with Edit Username step           | ✅        |
+| Form validation   | Empty username/password                            | ✅        |
+|                   | Invalid email format                               | ✅        |
+|                   | Non-existing username                              | ✅        |
+|                   | Wrong password                                     | ✅        |
+| Web form security | SQL Injection attempt in username field            | ![Pending](https://img.icons8.com/material-outlined/24/000000/unchecked-checkbox.png) |
+|                   | XSS attempt in username field                      | ![Pending](https://img.icons8.com/material-outlined/24/000000/unchecked-checkbox.png) |
 
 ### Further suggested test coverage:
 
