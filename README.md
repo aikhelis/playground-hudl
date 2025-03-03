@@ -68,6 +68,7 @@ _This report aids to illustrate the thought process behind test design. It's aut
 
 | Functionality         | Scenarios                   | 
 |-----------------------|-----------------------------|
+| Login with Socials    | Login with Google, Facebook, Apple accounts |
 | Recover login details | Forgotten Password Recovery |
 | Registration          | Create an account                        |  
 |                       | Create an account with duplicate details |
