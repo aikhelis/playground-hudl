@@ -13,7 +13,9 @@ This repository is created as personal practice and refreshments on Playwright. 
 
 3. **Authentication Workflow:** Evaluate transitioning to an authentication micro-service to handle auth requests, rather than serving full HTML on every attempt.
 
-## Running Tests on GitHub
+## Running Tests 
+
+### Running on GitHub
 [GHA workflow](https://github.com/aikhelis/playground-hudl/actions/workflows/playwright.yml) for playwright tests does the following:
 - is triggered on push to main and can be kicked off manually
 - injects base URL and user creds from GH repository environment variables and secrets
@@ -27,7 +29,7 @@ To view the report and go through test execution in Playwright's [Trace viewer](
 - Unpack and open `index.html`
 - Go to https://trace.playwright.dev/ and upload the trace blob file `playwright-report/data/<scenario-run-id>.zip`
 
-## Running Tests Locally
+### Running Locally
 ```shell
 # Install Dependencies
 npm install
@@ -64,7 +66,7 @@ _This report aids to illustrate the thought process behind test design. It's aut
 | Web form security | SQL Injection attempt                              | ✅        |
 |                   | XSS attempt                                        | ✅        |
 
-### Further Test Coverage Suggestions:
+### Further Test Coverage Suggestions
 
 | Functionality         | Scenarios                   | 
 |-----------------------|-----------------------------|
