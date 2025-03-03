@@ -13,7 +13,7 @@ This repository is created as personal practice and refreshments on Playwright. 
 
 3. **Authentication Workflow:** Evaluate transitioning to an authentication micro-service to handle auth requests, rather than serving full HTML on every attempt.
 
-## Running tests on GitHub
+## Running Tests on GitHub
 [GHA workflow](https://github.com/aikhelis/playground-hudl/actions/workflows/playwright.yml) for playwright tests does the following:
 - is triggered on push to main and can be kicked off manually
 - injects base URL and user creds from GH repository environment variables and secrets
@@ -64,11 +64,11 @@ _This report aids to illustrate the thought process behind test design. It's aut
 | Web form security | SQL Injection attempt                              | ✅        |
 |                   | XSS attempt                                        | ✅        |
 
-### Further suggested test coverage:
+### Further Test Coverage Suggestions:
 
 | Functionality         | Scenarios                   | 
 |-----------------------|-----------------------------|
-| Login with Socials    | Login with Google, Facebook, Apple accounts |
+| Login with Socials    | Login with Google, Facebook and Apple accounts |
 | Recover login details | Forgotten Password Recovery |
 | Registration          | Create an account                        |  
 |                       | Create an account with duplicate details |
@@ -83,7 +83,7 @@ _This report aids to illustrate the thought process behind test design. It's aut
 
 Start-small approach is used aspired by principles of [YAGNI](https://en.wikipedia.org/wiki/You_aren%27t_gonna_need_it) and [AHA!](https://kentcdodds.com/blog/aha-programming)
 
-Domain specific dimensions and patterns may emerge as we go, and need to be accounted for on when/if basis.
+Domain-specific dimensions and patterns may emerge as we go, and need to be accounted for on a when/if basis.
 
 For example, the following can be anticipated:
 
@@ -91,6 +91,6 @@ For example, the following can be anticipated:
 - Cross-platform testing (browser/OS/device)
 - More rigorous parallelisation/sharding
 - User sessions clash management (in parallel or coinciding test runs)
-- Higher level of UI abstraction (eg screenplay pattern, Playwright page fixtures such as user role specific)
+- A higher level of UI abstraction (eg screenplay pattern, Playwright page fixtures such as user role specific)
 - Discuss to remove `data-qa-id` from Production via build tools (for engineering best practices/PR and security considerations)
 - Test data management approaches (stubbing/mocking for client-side logic tests or against 3rd party services, data seeding/tidyup for full e2e tests, etc), data abstraction layer, API steps library, etc
