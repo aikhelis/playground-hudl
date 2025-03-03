@@ -7,23 +7,23 @@ This repository is created as personal practice and refreshments on Playwright. 
 
 ## Observed Potential Application Improvements
 
-1. **Unified Input Validation:** Instead of using a unique custom user-facing error code and message for a non-registered email account, consider displaying a unified error message for wrong username/password combinations. Apart from error message fragmentation, existing approach exposes a security risk by revealing extra information to potential attackers—specifically, it indicates whether an email address is registered.  
+1. **Unified Validation Messages:** Consider displaying a unified error code/message for wrong username/password combinations. Currently, a unique user-facing error code & message are added to the login page for a non-registered email account. Apart from error message fragmentation, this approach exposes a security risk by revealing whether a provided email address is registered in the system or not to potential attackers.  
 
-2. **Cosmetic Fix:** Correct the typo in the data-qa-id attribute from "gloabl-navbar" to the proper spelling.
+2. **Cosmetic Fix:** Correct the typo in the `data-qa-id="gloabl-navbar"` attribute.
 
-3. **Authentication Workflow:** Evaluate transitioning to an authentication micro-service to handle auth attempts, rather than serving full HTML on every attempt.
+3. **Authentication Workflow:** Evaluate transitioning to an authentication micro-service to handle auth requests, rather than serving full HTML on every attempt.
 
 ## Running tests on GitHub
 [GHA workflow](https://github.com/aikhelis/playground-hudl/actions/workflows/playwright.yml) for playwright tests does the following:
-- is trigerred on push to main and can be kicked off manually
-- injects base url and user creds from GH repository environment variables and secrets
+- is triggered on push to main and can be kicked off manually
+- injects base URL and user creds from GH repository environment variables and secrets
 - runs tests against Production
 - runs tests in a single headless browser
 - saves html report and trace assets on every run with several days of artifact retention
 
 To view the report and go through test execution in Playwright's [Trace viewer](https://playwright.dev/docs/trace-viewer):
 - Navigate to a particular run's details
-- Download `playwright-report` archive from the bottom of the page
+- Download the `playwright-report` archive from the bottom of the page
 - Unpack and open `index.html`
 - Go to https://trace.playwright.dev/ and upload the trace blob file `playwright-report/data/<scenario-run-id>.zip`
 
@@ -87,10 +87,10 @@ Domain specific dimensions and patterns may emerge as we go, and need to be acco
 
 For example, the following can be anticipated:
 
-- cross environment configurations
-- cross platform testing (browser/OS/device)
-- more rigorous parallelisation/sharding
-- user sessions clash management (in parallel or coinciding test runs)
-- higher level of UI abstraction (eg screenplay pattern, Playwright page fixtures such as user role specific)
-- discuss to remove `data-qa-id` from Production via build tools (for engineering best practices/PR and security considerations)
-- test data management approaches (stubbing/mocking for client-side logic tests or against 3rd party services, data seeding/tidyup for full e2e tests, etc), data abstraction layer, api steps library, etc
+- Cross-environment configurations
+- Cross-platform testing (browser/OS/device)
+- More rigorous parallelisation/sharding
+- User sessions clash management (in parallel or coinciding test runs)
+- Higher level of UI abstraction (eg screenplay pattern, Playwright page fixtures such as user role specific)
+- Discuss to remove `data-qa-id` from Production via build tools (for engineering best practices/PR and security considerations)
+- Test data management approaches (stubbing/mocking for client-side logic tests or against 3rd party services, data seeding/tidyup for full e2e tests, etc), data abstraction layer, API steps library, etc
