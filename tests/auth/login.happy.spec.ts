@@ -1,26 +1,23 @@
 import { test, expect } from "@playwright/test";
-import dotenv from "dotenv";
-import path from "path";
+
+let validUsername: string;
+let validPassword: string;
+
+test.beforeAll(async () => {
+  // Use environment variables to manage sensitive credentials securely
+  validUsername = process.env.USERNAME ?? "";
+  validPassword = process.env.PASSWORD ?? "";
+});
 
 test.beforeEach(async ({ page }) => {
   await page.goto("/login");
 });
 
-// Happy-path scenarios
 test.describe("Login Happy-Path Tests", () => {
-  let username: string;
-  let password: string;
-
-  test.beforeAll(async () => {
-    // Use environment variables to manage sensitive credentials securely
-    username = process.env.USERNAME ?? "";
-    password = process.env.PASSWORD ?? "";
-  });
-
   test("Successful login and logout with valid credentials", async ({ page, baseURL }) => {
-    await page.fill("input#username", username);
+    await page.fill("input#username", validUsername);
     await page.click('button[type="submit"]');
-    await page.fill("input#password", password);
+    await page.fill("input#password", validPassword);
     await page.click('button[type="submit"]');
 
     // Wait for navigation or a unique element that indicates a successful login
@@ -38,17 +35,17 @@ test.describe("Login Happy-Path Tests", () => {
 
   test("Successful login with Edit Username step", async ({ page }) => {
     // Begin login flow by entering the username
-    await page.fill("input#username", "invalid_" + username);
+    await page.fill("input#username", "invalid_" + validUsername);
     await page.click('button[type="submit"]');
     await expect(page.locator("input#password")).toBeVisible();
 
     // Go back to correct the entered username
     await page.click('a[data-link-name="edit-username"]');
-    await page.fill("input#username", username);
+    await page.fill("input#username", validUsername);
     await page.click('button[type="submit"]');
 
     // Continue the login process by entering the password
-    await page.fill("input#password", password);
+    await page.fill("input#password", validPassword);
     await page.click('button[type="submit"]');
 
     // Verify that login was successful

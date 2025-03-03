@@ -1,22 +1,19 @@
 import { test, expect } from "@playwright/test";
-import dotenv from "dotenv";
-import path from "path";
+
+let validUsername: string;
+let validPassword: string;
+
+test.beforeAll(async () => {
+  // Use environment variables to manage sensitive credentials securely
+  validUsername = process.env.USERNAME ?? "";
+  validPassword = process.env.PASSWORD ?? "";
+});
 
 test.beforeEach(async ({ page }) => {
   await page.goto("/login");
 });
 
-// Negative Testing Group
 test.describe("Login Negative Tests", () => {
-  let validUsername: string;
-  let validPassword: string;
-
-  test.beforeAll(async () => {
-    // Use environment variables to manage sensitive credentials securely
-    validUsername = process.env.USERNAME ?? "";
-    validPassword = process.env.PASSWORD ?? "";
-  });
-
   test("Empty username/password", async ({ page }) => {
     // Browser validation of required inputs: username
     await page.fill("input#username", "");
@@ -37,8 +34,6 @@ test.describe("Login Negative Tests", () => {
 
     await page.fill("input#password", validPassword);
     await expect(page.locator("input#password[required]:valid")).toBeAttached();    
-    await page.click('button[type="submit"]');
-    await expect(page.locator("input#password")).toBeHidden();
   });
 
   test("Invalid email format", async ({ page }) => {

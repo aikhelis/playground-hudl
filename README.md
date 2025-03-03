@@ -2,6 +2,14 @@
 
 This repository is created as personal practice and refreshments on Playwright. It contains some e2e tests for Hudl.com website, which I highly admire. 
 
+## Observed Potential Application Improvements
+
+1. **Unified Input Validation:** Instead of using a unique custom user-facing error code and message for a non-registered email account, consider displaying a unified error message for wrong username/password combinations. Apart from error message fragmentation, existing approach exposes a security risk by revealing extra information to potential attackers—specifically, it indicates whether an email address is registered.  
+
+2. **Cosmetic Fix:** Correct the typo in the data-qa-id attribute from "gloabl-navbar" to the proper spelling.
+
+3. **Authentication Workflow:** Evaluate transitioning to an authentication micro-service to handle auth attempts, rather than serving full HTML on every attempt.
+
 ## Running tests on GitHub
 [GHA workflow](https://github.com/aikhelis/playground-hudl/actions/workflows/playwright.yml) for playwright tests does the following:
 - is trigerred on push to main and can be kicked off manually
@@ -14,7 +22,7 @@ To view the report and go through test execution in Playwright's [Trace viewer](
 - Navigate to a particular run's details
 - Download `playwright-report` archive from the bottom of the page
 - Unpack and open `index.html`
-- Go to https://trace.playwright.dev/ and upload the trace blob file `playwright-report/data/<session-id>.zip`
+- Go to https://trace.playwright.dev/ and upload the trace blob file `playwright-report/data/<scenario-run-id>.zip`
 
 ## Running Tests Locally
 ```shell
@@ -50,8 +58,8 @@ _This report aids to illustrate the thought process behind test design. It's aut
 |                   | Invalid email format                               | ✅        |
 |                   | Non-existing username                              | ✅        |
 |                   | Wrong password                                     | ✅        |
-| Web form security | SQL Injection attempt in username field            | ![Pending](https://img.icons8.com/material-outlined/24/000000/unchecked-checkbox.png) |
-|                   | XSS attempt in username field                      | ![Pending](https://img.icons8.com/material-outlined/24/000000/unchecked-checkbox.png) |
+| Web form security | SQL Injection attempt                              | ✅        |
+|                   | XSS attempt                                        | ✅        |
 
 ### Further suggested test coverage:
 
