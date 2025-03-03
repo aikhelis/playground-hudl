@@ -2,6 +2,9 @@
 
 This repository is created as personal practice and refreshments on Playwright. It contains some e2e tests for Hudl.com website, which I highly admire. 
 
+## ToDo
+- [ ] Add UI abstraction on top of emerged patterns: login page and common nav/page validation mechanism; stay lean.
+
 ## Observed Potential Application Improvements
 
 1. **Unified Input Validation:** Instead of using a unique custom user-facing error code and message for a non-registered email account, consider displaying a unified error message for wrong username/password combinations. Apart from error message fragmentation, existing approach exposes a security risk by revealing extra information to potential attackers—specifically, it indicates whether an email address is registered.  
