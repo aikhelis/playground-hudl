@@ -10,11 +10,11 @@ This repository is created as personal practice and refreshments on Playwright. 
 - runs tests in a single headless browser
 - saves html report and trace assets on every run with several days of artifact retention
 
-To view the report and go through test execution in Playwright [trace viewer](https://playwright.dev/docs/trace-viewer):
+To view the report and go through test execution in Playwright's [Trace viewer](https://playwright.dev/docs/trace-viewer):
 - Navigate to a particular run's details
 - Download `playwright-report` archive from the bottom of the page
 - Unpack and open `index.html`
-- Go to (https://trace.playwright.dev/) and upload the trace blob file `playwright-report/data/<session-id>.zip`
+- Go to https://trace.playwright.dev/ and upload the trace blob file `playwright-report/data/<session-id>.zip`
 
 ## Running Tests Locally
 ```shell
