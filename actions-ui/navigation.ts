@@ -2,39 +2,35 @@ import { expect, Page } from '@playwright/test'
 
 let page: Page;
 
-const qaId = (id: string): string => `[data-qa-id="${id}"]`;
+export const qaId = (id: string): string => `[data-qa-id="${id}"]`;
 
-const pageRoutes = new Map<string, string>(
-    Object.entries({
-        base: '',
-        login: 'login',
-        home: 'home',
-    })
-);
+const routes: {[key: string]: string} = {
+    base: '',
+    login: 'login',
+    home: 'home',
+};
 
-const pageIdentifiers = new Map<string, string>(
-    Object.entries({
-        base: qaId("login-select"),
-        login: "input#username",
-        home: qaId("gloabl-navbar"),
-    })
-);
+const selectors: {[key: string]: string} = {
+    base: qaId("login-select"),
+    login: "input#username",
+    home: qaId("gloabl-navbar"),
+};
 
-async function gotoPage (pageName: string) {
+async const gotoPage = (pageName: string) => {
     const name = pageName.toLowerCase();
-    await page.goto(pageRoutes.get(name));
+    await page.goto(routes[name]);
     validatePage(name);
 };
 
-async function validatePage(pageName: string) {
+async const validatePage = (pageName: string) => {
     const name = pageName.toLowerCase();
-    await expect(page).toHaveURL( new RegExp(pageRoutes.get(name)) );
-    await expect(page.locator(pageIdentifiers.get(name))).toBeVisible();
+    await expect(page).toHaveURL( new RegExp(routes[name]) );
+    await expect(page.locator(selectors[name])).toBeVisible();
 };
 
 const navigation = (pageContext: Page) => { 
     page = pageContext;
-    return { qaId, gotoPage, validatePage };
+    return { gotoPage, validatePage };
 };
 
 export default navigation;

@@ -1,6 +1,9 @@
 import { expect, Page } from '@playwright/test'
+import qaId from 'navigation';
 import dotenv from "dotenv";
 import path from "path";
+
+let page: Page;
 
 const selectors = {
   loginButton: 'sign-in-button',
@@ -58,6 +61,9 @@ const logout = async (page: Page): Promise<void> => {
   await expect(page).toHaveURL(/login/)
 }
 
-const authentication = { login, logout, invalidLogin }
+const authentication = (pageContext: Page) => {
+  page = pageContext;
+  return {  };
+}
 
 export default authentication
