@@ -32,6 +32,8 @@ export default defineConfig({
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
     baseURL: process.env.BASE_URL ?? "",
+    
+    testIdAttribute: 'data-qa-id',
 
     /* Collect trace for all test runs. See https://playwright.dev/docs/trace-viewer */
     trace: process.env.CI ? "on" : "off",

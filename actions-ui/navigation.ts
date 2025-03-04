@@ -16,13 +16,13 @@ const selectors: {[key: string]: string} = {
     home: qaId("gloabl-navbar"),
 };
 
-async function gotoPage (pageName: string) {
+async function gotoPage(pageName: string) {
     const name = pageName.toLowerCase();
     await page.goto(routes[name]);
     validatePage(name);
 };
 
-async function validatePage (pageName: string) {
+async function validatePage(pageName: string) {
     const name = pageName.toLowerCase();
     await expect(page).toHaveURL( new RegExp(routes[name]) );
     await expect(page.locator(selectors[name])).toBeVisible();
