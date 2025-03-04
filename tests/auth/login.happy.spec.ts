@@ -1,7 +1,9 @@
 import { test, expect } from "@playwright/test";
+import navigation from "../../actions-ui/navigation";
 
 let validUsername: string;
 let validPassword: string;
+let nav; 
 
 test.beforeAll(async () => {
   // Use environment variables to manage sensitive credentials securely
@@ -10,7 +12,8 @@ test.beforeAll(async () => {
 });
 
 test.beforeEach(async ({ page }) => {
-  await page.goto("/login");
+  nav = navigation(page);
+  await nav.gotoPage("login");
 });
 
 test.describe("Login Happy-Path Tests", () => {
