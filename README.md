@@ -65,6 +65,7 @@ _This report aids to illustrate the thought process behind test design. It's aut
 |                   | Wrong password                                     | ✅        |
 | Web form security | SQL Injection attempt                              | ✅        |
 |                   | XSS attempt                                        | ✅        |
+|                   | Overflow attempt (256+ alpha-numeric-special characters) |         |
 
 ### Further Test Coverage Suggestions
 
