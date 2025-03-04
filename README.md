@@ -33,6 +33,7 @@ To view the report and go through test execution in Playwright's [Trace viewer](
 ```shell
 # Install Dependencies
 npm install
+npx playwright install --with-deps chromium
 
 # Configure Environment Variables
 # Copy .env.local.example to .env.local and update the values as needed

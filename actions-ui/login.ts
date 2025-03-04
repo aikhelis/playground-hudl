@@ -1,5 +1,5 @@
 import { expect, Page } from '@playwright/test'
-import qaId from 'navigation';
+import qaId from './navigation';
 import dotenv from "dotenv";
 import path from "path";
 
