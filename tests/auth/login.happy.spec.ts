@@ -1,9 +1,10 @@
-import { test, expect } from "@playwright/test";
+import { test } from "@playwright/test";
 import navigation from "../../actions-ui/navigation";
+import authentication from "../../actions-ui/authentication";
 
 let validUsername: string;
 let validPassword: string;
-let nav; 
+let nav, auth; 
 
 test.beforeAll(async () => {
   // Use environment variables to manage sensitive credentials securely
@@ -13,50 +14,24 @@ test.beforeAll(async () => {
 
 test.beforeEach(async ({ page }) => {
   nav = navigation(page);
-  await nav.gotoPage("login");
+  auth = authentication(page);
+  await nav.gotoScreen("login");
 });
 
 test.describe("Login Happy-Path Tests", () => {
   test("Successful login and logout with valid credentials", async ({ page, baseURL }) => {
-    await page.fill("input#username", validUsername);
-    await page.click('button[type="submit"]');
-    await page.fill("input#password", validPassword);
-    await page.click('button[type="submit"]');
-
-    // Wait for navigation or a unique element that indicates a successful login
-    await expect(page).toHaveURL(/home/);
-    // TODO: fix typo in data-qa-id
-    await expect(page.locator('[data-qa-id="gloabl-navbar"]')).toBeVisible();
-
-    // Log out
-    await page.click('div.hui-globalusermenu');
-    await page.click('[data-qa-id="webnav-usermenu-logout"]');
-    // Verify logged out home page
-    await expect(page).toHaveURL(baseURL ?? "");
-    await expect(page.locator('[data-qa-id="login-select"]')).toBeVisible();
+    await auth.submitUsername(validUsername);
+    await auth.submitPassword(validPassword);
+    await nav.expectScreen("home");
+    await auth.logout();
   });
 
   test("Successful login with Edit Username step", async ({ page }) => {
-    // Begin login flow by entering the username
-    await page.fill("input#username", "invalid_" + validUsername);
-    await page.click('button[type="submit"]');
-    await expect(page.locator("input#password")).toBeVisible();
-
+    await  auth.submitUsername("invalid_" + validUsername);    
     // Go back to correct the entered username
-    await page.click('a[data-link-name="edit-username"]');
-    await page.fill("input#username", validUsername);
-    await page.click('button[type="submit"]');
-
-    // Continue the login process by entering the password
-    await page.fill("input#password", validPassword);
-    await page.click('button[type="submit"]');
-
-    // Verify that login was successful
-    await expect(page).toHaveURL(/home/);
-    await expect(page.locator('[data-qa-id="gloabl-navbar"]')).toBeVisible();
-
-    // Log out
-    await page.click('div.hui-globalusermenu');
-    await page.click('[data-qa-id="webnav-usermenu-logout"]');
+    await auth.editUsername(validUsername);
+    await auth.submitPassword(validPassword);
+    await nav.expectScreen("home");
+    await auth.logout();
   });
 });

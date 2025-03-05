@@ -1,44 +1,35 @@
-import { test, expect } from "@playwright/test";
+import { test } from "@playwright/test";
+import { faker } from "@faker-js/faker";
+import navigation from "../../actions-ui/navigation";
+import authentication from "../../actions-ui/authentication";
 
 let validUsername: string;
-let validPassword: string;
-
-test.beforeAll(async () => {
-  // Use environment variables to manage sensitive credentials securely
-  validUsername = process.env.USERNAME ?? "";
-  validPassword = process.env.PASSWORD ?? "";
-});
+let nav, auth;
 
 test.beforeEach(async ({ page }) => {
-  await page.goto("/login");
+  validUsername = process.env.USERNAME ?? "";
+  nav = navigation(page);
+  auth = authentication(page);
 });
 
-test.describe("Login Security Tests", () => {
-  test("SQL Injection attempt", async ({ page }) => {
-    const sqlString = "' OR '1'='1";
+[
+  { scenario: "SQL Injection attempt", input: "' OR '1'='1" },
+  { scenario: "XSS attempt", input: '<script>alert("xss")</script>' },
+  { scenario: "Overflow attempt with 256 characters", input: faker.string.sample(256) },
+  { scenario: "Overflow attempt with 257 characters", input: faker.string.sample(257) },
+].forEach(({ scenario, input }) => {
+  test.describe("Login Security Tests", () => {
+    test.beforeEach(async ({ page }) => {
+      await nav.gotoScreen("login");
+    });
 
-    await page.fill('input[name="username"]', sqlString);
-    await page.click('button[type="submit"]');
-    await expect(page.locator('[data-error-code="invalid-email-format"]')).toBeVisible();
+    test(scenario, async ({ page }) => {
+      await auth.submitUsername(input);
+      await auth.expectErrorMessage("invalid email format");
 
-    await page.fill("input#username", validUsername);
-    await page.click('button[type="submit"]');
-    await page.fill("input#password", sqlString);
-    await page.click('button[type="submit"]');
-    await expect(page.locator('[data-error-code="wrong-email-credentials"]')).toBeVisible();
-  });
-
-  test("XSS attempt", async ({ page }) => {
-    const xssString = '<script>alert("xss")</script>';
-
-    await page.fill('input[name="username"]', xssString);
-    await page.click('button[type="submit"]');
-    await expect(page.locator('[data-error-code="invalid-email-format"]')).toBeVisible();
-
-    await page.fill("input#username", validUsername);
-    await page.click('button[type="submit"]');
-    await page.fill("input#password", xssString);
-    await page.click('button[type="submit"]');
-    await expect(page.locator('[data-error-code="wrong-email-credentials"]')).toBeVisible();
+      await auth.submitUsername(validUsername);
+      await auth.submitPassword(input);
+      await auth.expectErrorMessage("invalid credentials");
+    });
   });
 });

@@ -1,36 +1,43 @@
-import { expect, Page } from '@playwright/test'
+import { expect, Page } from "@playwright/test";
 
 let page: Page;
 
-export const qaId = (id: string): string => `[data-qa-id="${id}"]`;
-
-const routes: {[key: string]: string} = {
-    base: '',
-    login: 'login',
-    home: 'home',
+// App navigation config
+const routes: { [key: string]: string } = {
+  base: "",
+  login: "login",
+  home: "home",
 };
 
-const selectors: {[key: string]: string} = {
-    base: qaId("login-select"),
-    login: "input#username",
-    home: qaId("gloabl-navbar"),
+const qaId = (id: string): string => `[data-qa-id="${id}"]`;
+const selectors: { [key: string]: string } = {
+  base: qaId("login-select"),
+  login: '//h1[contains(text(), "Log In")]',
+  // TODO: fix typo in data-qa-id
+  home: qaId("gloabl-navbar"),
 };
 
-async function gotoPage(pageName: string) {
-    const name = pageName.toLowerCase();
-    await page.goto(routes[name]);
-    validatePage(name);
-};
+async function gotoScreen(screenName: string) {
+  const name = screenName.toLowerCase();
+  await page.goto(routes[name]);
+  expectScreen(name);
+}
 
-async function validatePage(pageName: string) {
-    const name = pageName.toLowerCase();
-    await expect(page).toHaveURL( new RegExp(routes[name]) );
-    await expect(page.locator(selectors[name])).toBeVisible();
-};
+async function expectScreen(screenName: string) {
+  const name = screenName.toLowerCase();
+  await expect(page).toHaveURL(new RegExp(routes[name]));
+  await expect(page.locator(selectors[name])).toBeVisible();
+}
 
-const navigation = (pageContext: Page) => { 
-    page = pageContext;
-    return { gotoPage, validatePage };
+// Browser validation of required input fields
+async function expectRequiredInputValidation(fieldName: string) {
+  await expect(page.locator(`input#${fieldName.toLowerCase()}[required]:invalid`)).toBeAttached();
+}
+
+// Export common navigation actions
+const navigation = (pageContext: Page) => {
+  page = pageContext;
+  return { gotoScreen, expectScreen, expectRequiredInputValidation };
 };
 
 export default navigation;

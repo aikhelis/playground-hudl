@@ -1,7 +1,10 @@
-import { test, expect } from "@playwright/test";
+import { test } from "@playwright/test";
+import navigation from "../../actions-ui/navigation";
+import authentication from "../../actions-ui/authentication";
 
 let validUsername: string;
 let validPassword: string;
+let nav, auth; 
 
 test.beforeAll(async () => {
   // Use environment variables to manage sensitive credentials securely
@@ -10,55 +13,40 @@ test.beforeAll(async () => {
 });
 
 test.beforeEach(async ({ page }) => {
-  await page.goto("/login");
+  nav = navigation(page);
+  auth = authentication(page);
+  await nav.gotoScreen("login");
 });
 
 test.describe("Login Negative Tests", () => {
   test("Empty username/password", async ({ page }) => {
     // Browser validation of required inputs: username
-    await page.fill("input#username", "");
-    await expect(page.locator("input#username[required]:invalid")).toBeAttached();
-    await page.click('button[type="submit"]');
-    await expect(page.locator("input#password")).toBeHidden();
-
-    await page.fill("input#username", validUsername);
-    await expect(page.locator("input#username[required]:valid")).toBeAttached();
-    await page.click('button[type="submit"]');
-    await expect(page.locator("input#password")).toBeVisible();
-
+    await auth.submitUsername("");
+    await nav.expectRequiredInputValidation("username");
+    await nav.expectScreen("login");
+  
     // Browser validation of required inputs: password
-    await page.fill("input#password", "");
-    await expect(page.locator("input#password[required]:invalid")).toBeAttached();
-    await page.click('button[type="submit"]');
-    await expect(page.locator("input#password")).toBeVisible();
-
-    await page.fill("input#password", validPassword);
-    await expect(page.locator("input#password[required]:valid")).toBeAttached();    
+    await auth.submitUsername(validUsername);
+    await auth.submitPassword("");
+    await nav.expectRequiredInputValidation("password");
+    await nav.expectScreen("login");
   });
 
   test("Invalid email format", async ({ page }) => {
-    // Form validation: email format
-    await page.fill("input#username", "invalidEmailFormat");
-    await page.click('button[type="submit"]');
-    await expect(page.locator('[data-error-code="invalid-email-format"]')).toBeVisible();
+    await auth.submitUsername("invalidEmailFormat");
+    await auth.expectErrorMessage("invalid email format");
   });
 
   test("Non-existing username", async ({ page }) => {
-    // Fail Authentication: Non-existing username
-    await page.fill("input#username", "non-existing-username@test.com");
-    await page.click('button[type="submit"]');
-    await page.fill("input#password", validPassword);
-    await page.click('button[type="submit"]');
+    await auth.submitUsername("non-existing-username@test.com");
+    await auth.submitPassword(validPassword);
     // FIXME: secruity risk by exposing that email isn't registered via a custom, user-facing error message
-    await expect(page.locator('[data-error-code="custom-script-error-code_invalid_user_password"]')).toBeVisible();
+    await auth.expectErrorMessage("invalid username");
   });
 
   test("Wrong password", async ({ page }) => {
-    // Fail Authentication: wrong password
-    await page.fill("input#username", validUsername);
-    await page.click('button[type="submit"]');
-    await page.fill("input#password", "wrongPassword");
-    await page.click('button[type="submit"]');
-    await expect(page.locator('[data-error-code="wrong-email-credentials"]')).toBeVisible();
+    await auth.submitUsername(validUsername);
+    await auth.submitPassword("wrongPassword");
+    await auth.expectErrorMessage("invalid credentials");
   });
 });
