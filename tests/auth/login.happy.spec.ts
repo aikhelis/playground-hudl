@@ -21,7 +21,7 @@ test.describe("Login Happy-Path Tests", () => {
   });
 
   test("Successful login with Edit Username step", async ({ page }) => {
-    await  auth.submitUsername("invalid_" + validUsername);    
+    await auth.submitUsername("invalid_" + validUsername);    
     // Go back to correct the entered username
     await auth.editUsername(validUsername);
     await auth.submitPassword(validPassword);
