@@ -1,6 +1,6 @@
 # playground-hudl
 
-This repository is created as personal practice and refreshments on Playwright. It contains some e2e tests for Hudl.com website, which I highly admire. 
+This repository is created as personal practice and refreshments on Playwright. It contains some the e2e tests for Hudl.com website, which I highly admire. 
 
 ## ToDo
 ✅ Add UI abstraction on top of emerged patterns: login page and common nav/page validation mechanism; stay lean.
