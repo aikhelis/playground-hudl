@@ -3,44 +3,40 @@ import { faker } from "@faker-js/faker";
 import navigation from "../../actions-ui/navigation";
 import authentication from "../../actions-ui/authentication";
 
-let validUsername: string;
+const validUsername = process.env.USERNAME ?? "";
 let nav, auth;
-
-test.beforeEach(async ({ page }) => {
-  validUsername = process.env.USERNAME ?? "";
-  nav = navigation(page);
-  auth = authentication(page);
-});
 
 [
   {
-    scenario: "SQL Injection attempt",
-    input: "' OR '1'='1",
+    scenarioName: "SQL Injection attempt",
+    maliciousInput: "' OR '1'='1",
   },
   {
-    scenario: "XSS attempt",
-    input: '<script>alert("xss")</script>',
+    scenarioName: "XSS attempt",
+    maliciousInput: '<script>alert("xss")</script>',
   },
   {
-    scenario: "Overflow attempt with 256 characters",
-    input: faker.string.sample(256),
+    scenarioName: "Overflow attempt with 256 characters",
+    maliciousInput: faker.string.sample(256),
   },
   {
-    scenario: "Overflow attempt with 257 characters",
-    input: faker.string.sample(257),
+    scenarioName: "Overflow attempt with 257 characters",
+    maliciousInput: faker.string.sample(257),
   },
-].forEach(({ scenario, input }) => {
+].forEach(({ scenarioName, maliciousInput }) => {
   test.describe("Login Security Tests", () => {
     test.beforeEach(async ({ page }) => {
+      nav = navigation(page);
+      auth = authentication(page);
       await nav.gotoScreen("login");
     });
 
-    test(scenario, async ({ page }) => {
-      await auth.submitUsername(input);
+    test(scenarioName, async ({ page }) => {
+      await auth.submitUsername(maliciousInput);
       await auth.expectErrorMessage("invalid email format");
 
       await auth.submitUsername(validUsername);
-      await auth.submitPassword(input);
+      await auth.submitPassword(maliciousInput);
       await auth.expectErrorMessage("invalid credentials");
     });
   });

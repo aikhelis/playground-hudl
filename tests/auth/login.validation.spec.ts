@@ -2,15 +2,9 @@ import { test } from "@playwright/test";
 import navigation from "../../actions-ui/navigation";
 import authentication from "../../actions-ui/authentication";
 
-let validUsername: string;
-let validPassword: string;
-let nav, auth; 
-
-test.beforeAll(async () => {
-  // Use environment variables to manage sensitive credentials securely
-  validUsername = process.env.USERNAME ?? "";
-  validPassword = process.env.PASSWORD ?? "";
-});
+const validUsername = process.env.USERNAME ?? "";
+const validPassword = process.env.PASSWORD ?? "";
+let nav, auth;
 
 test.beforeEach(async ({ page }) => {
   nav = navigation(page);
@@ -24,7 +18,7 @@ test.describe("Login Negative Tests", () => {
     await auth.submitUsername("");
     await nav.expectRequiredInputValidation("username");
     await nav.expectScreen("login");
-  
+
     // Browser validation of required inputs: password
     await auth.submitUsername(validUsername);
     await auth.submitPassword("");
@@ -35,6 +29,7 @@ test.describe("Login Negative Tests", () => {
   test("Invalid email format", async ({ page }) => {
     await auth.submitUsername("invalidEmailFormat");
     await auth.expectErrorMessage("invalid email format");
+    await nav.expectScreen("login");
   });
 
   test("Non-existing username", async ({ page }) => {
@@ -42,11 +37,13 @@ test.describe("Login Negative Tests", () => {
     await auth.submitPassword(validPassword);
     // FIXME: secruity risk by exposing that email isn't registered via a custom, user-facing error message
     await auth.expectErrorMessage("invalid username");
+    await nav.expectScreen("login");
   });
 
   test("Wrong password", async ({ page }) => {
     await auth.submitUsername(validUsername);
     await auth.submitPassword("wrongPassword");
     await auth.expectErrorMessage("invalid credentials");
+    await nav.expectScreen("login");
   });
 });

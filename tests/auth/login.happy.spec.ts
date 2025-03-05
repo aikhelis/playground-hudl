@@ -2,15 +2,9 @@ import { test } from "@playwright/test";
 import navigation from "../../actions-ui/navigation";
 import authentication from "../../actions-ui/authentication";
 
-let validUsername: string;
-let validPassword: string;
+const validUsername = process.env.USERNAME ?? "";
+const validPassword = process.env.PASSWORD ?? "";
 let nav, auth; 
-
-test.beforeAll(async () => {
-  // Use environment variables to manage sensitive credentials securely
-  validUsername = process.env.USERNAME ?? "";
-  validPassword = process.env.PASSWORD ?? "";
-});
 
 test.beforeEach(async ({ page }) => {
   nav = navigation(page);
