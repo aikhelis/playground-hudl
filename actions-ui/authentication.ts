@@ -39,7 +39,9 @@ const errorCodes = {
 
 async function expectErrorMessage(message: string) {
   const code = errorCodes[message] ?? "";
-  await expect(page.locator(`[data-error-code="${code.toLowerCase()}"]`)).toBeVisible();
+  await expect(
+    page.locator(`[data-error-code="${code.toLowerCase()}"]`)
+  ).toBeVisible();
 }
 
 // User workflow actions

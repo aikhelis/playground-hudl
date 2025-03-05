@@ -31,7 +31,9 @@ async function expectScreen(screenName: string) {
 
 // Browser validation of required input fields
 async function expectRequiredInputValidation(fieldName: string) {
-  await expect(page.locator(`input#${fieldName.toLowerCase()}[required]:invalid`)).toBeAttached();
+  await expect(
+    page.locator(`input#${fieldName.toLowerCase()}[required]:invalid`)
+  ).toBeAttached();
 }
 
 // Export common navigation actions

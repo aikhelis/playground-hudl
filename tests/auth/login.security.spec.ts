@@ -13,10 +13,22 @@ test.beforeEach(async ({ page }) => {
 });
 
 [
-  { scenario: "SQL Injection attempt", input: "' OR '1'='1" },
-  { scenario: "XSS attempt", input: '<script>alert("xss")</script>' },
-  { scenario: "Overflow attempt with 256 characters", input: faker.string.sample(256) },
-  { scenario: "Overflow attempt with 257 characters", input: faker.string.sample(257) },
+  {
+    scenario: "SQL Injection attempt",
+    input: "' OR '1'='1",
+  },
+  {
+    scenario: "XSS attempt",
+    input: '<script>alert("xss")</script>',
+  },
+  {
+    scenario: "Overflow attempt with 256 characters",
+    input: faker.string.sample(256),
+  },
+  {
+    scenario: "Overflow attempt with 257 characters",
+    input: faker.string.sample(257),
+  },
 ].forEach(({ scenario, input }) => {
   test.describe("Login Security Tests", () => {
     test.beforeEach(async ({ page }) => {
