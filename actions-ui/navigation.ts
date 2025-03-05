@@ -20,7 +20,7 @@ const selectors: { [key: string]: string } = {
 async function gotoScreen(screenName: string) {
   const name = screenName.toLowerCase();
   await page.goto(routes[name]);
-  expectScreen(name);
+  await expectScreen(name);
 }
 
 async function expectScreen(screenName: string) {
