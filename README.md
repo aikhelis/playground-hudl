@@ -3,17 +3,7 @@
 This repository is created as personal practice and refreshments on Playwright. It contains some of the e2e tests for the Hudl.com website, which I highly admire. 
 
 ## ToDo
-✅ Add UI abstraction on top of emerged patterns: login page and common nav/page validation mechanism; stay lean.
-
-## Observed Potential Application Improvements
-
-1. **Security & Tidiness of the end-user facing web pages**
-* **Unified login input validation messages:** Consider displaying a unified error code/message for wrong username/password combinations. Currently, a unique user-facing error code & message are added to the login page for a non-registered email account. Apart from error message fragmentation, this approach exposes a security risk by revealing whether a provided email address is registered in the system or not to potential attackers.
-* **Tidy public HTML:** Consider removing `data-qa-id` attributes from the web pages served in Production via build tools for improved public-facing impression and security considerations.
-
-2. **Cosmetic Fix:** Correct the typo in the `data-qa-id="gloabl-navbar"` attribute.
-
-3. **Authentication Workflow:** Evaluate transitioning to an authentication micro-service to handle auth requests, rather than serving full HTML on every attempt.
+✅ Add UI abstraction on top of emerged patterns: login page & common nav mechanism. Stay lean.
 
 ## Running Tests 
 
@@ -100,3 +90,13 @@ For example, the following can be anticipated:
 - User sessions clash management (in parallel or coinciding test runs)
 - A higher level of UI abstraction (eg screenplay pattern, Playwright page fixtures such as user role specific)
 - Test data management approaches (stubbing/mocking for client-side logic tests or against 3rd party services, data seeding/tidy-up for full e2e tests, etc), data abstraction layer, API steps library, etc
+
+## Observed Potential Application Improvements
+
+1. **Security & Tidiness of the end-user facing web pages**
+* **Unified login input validation messages:** Consider displaying a unified error code/message for wrong username/password combinations. Currently, a unique user-facing error code & message are added to the login page for a non-registered email account. Apart from error message fragmentation, this approach exposes a security risk by revealing whether a provided email address is registered in the system or not to potential attackers.
+* **Tidy public HTML:** Consider removing `data-qa-id` attributes from the web pages served in Production via build tools for improved public-facing impression and security considerations.
+
+2. **Cosmetic Fix:** Correct the typo in the `data-qa-id="gloabl-navbar"` attribute.
+
+3. **Authentication Workflow:** Evaluate transitioning to an authentication micro-service to handle auth requests, rather than serving full HTML on every attempt.
