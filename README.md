@@ -1,13 +1,15 @@
 # playground-hudl
 
-This repository is created as personal practice and refreshments on Playwright. It contains some the e2e tests for Hudl.com website, which I highly admire. 
+This repository is created as personal practice and refreshments on Playwright. It contains some of the e2e tests for the Hudl.com website, which I highly admire. 
 
 ## ToDo
 ✅ Add UI abstraction on top of emerged patterns: login page and common nav/page validation mechanism; stay lean.
 
 ## Observed Potential Application Improvements
 
-1. **Unified Validation Messages:** Consider displaying a unified error code/message for wrong username/password combinations. Currently, a unique user-facing error code & message are added to the login page for a non-registered email account. Apart from error message fragmentation, this approach exposes a security risk by revealing whether a provided email address is registered in the system or not to potential attackers.  
+1. **Security & Tidiness of the end-user facing web pages**
+* **Unified login input validation messages:** Consider displaying a unified error code/message for wrong username/password combinations. Currently, a unique user-facing error code & message are added to the login page for a non-registered email account. Apart from error message fragmentation, this approach exposes a security risk by revealing whether a provided email address is registered in the system or not to potential attackers.
+* **Tidy public HTML:** Consider removing `data-qa-id` attributes from the web pages served in Production via build tools for improved public-facing impression and security considerations.
 
 2. **Cosmetic Fix:** Correct the typo in the `data-qa-id="gloabl-navbar"` attribute.
 
@@ -82,7 +84,7 @@ If tests fail, verify that you have the correct environment variables and config
 | | - Permissions |
 | Non-functional requirements for Authn & Authz (as relevant) | Client-side: Performance (such as lighthouse), Compatibility (browser/device/mobile-first) and Accessibility tests |
 | | Server-side: Performance, Stress, Soak, Scalability, Geo-scalability and/or Chaos testing |
-| | L18n testing (look, feel and functionality in es, pt, zh; tests should be language agnostic; translation correctness best validated separately, a part of l18n process) |
+| | L18n testing (look, feel and functionality in es, pt, zh; tests should be language agnostic; translation correctness best validated separately, as a part of the l18n process) |
 
 ## Design Notes
 
@@ -97,5 +99,4 @@ For example, the following can be anticipated:
 - More rigorous parallelisation/sharding
 - User sessions clash management (in parallel or coinciding test runs)
 - A higher level of UI abstraction (eg screenplay pattern, Playwright page fixtures such as user role specific)
-- Discuss to remove `data-qa-id` from Production via build tools (for engineering best practices/PR and security considerations)
 - Test data management approaches (stubbing/mocking for client-side logic tests or against 3rd party services, data seeding/tidy-up for full e2e tests, etc), data abstraction layer, API steps library, etc
