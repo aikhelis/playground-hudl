@@ -82,6 +82,7 @@ If tests fail, verify that you have the correct environment variables and config
 | | - Permissions |
 | Non-functional requirements for Authn & Authz (as relevant) | Client-side: Performance (such as lighthouse), Compatibility (browser/device/mobile-first) and Accessibility tests |
 | | Server-side: Performance, Stress, Soak, Scalability, Geo-scalability and/or Chaos testing |
+| | L18n testing (look, feel and functionality in es, pt, zh; tests should be language agnostic; translation correctness best validated separately, a part of l18n process) |
 
 ## Design Notes
 
