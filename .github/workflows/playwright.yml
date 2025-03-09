@@ -17,8 +17,9 @@ jobs:
     - name: Install dependencies
       run: npm ci
 
-    - name: Get Playwright version for caching browser executables
+    - name: Extract Playwright version for caching browser executables
       id: playwright-version
+      shell: bash
       run: echo "PLAYWRIGHT_VERSION=$(jq -r '.devDependencies.playwright' package.json)" >> $GITHUB_ENV
     - name: Cache playwright binaries
       uses: actions/cache@v4
