@@ -18,7 +18,7 @@
   "homepage": "https://github.com/aikhelis/playground-hudl#readme",
   "devDependencies": {
     "@faker-js/faker": "^9.5.1",
-    "@playwright/test": "^1.50.1",
+    "@playwright/test": "^1.51.0",
     "@types/node": "^22.13.5"
   },
   "dependencies": {
