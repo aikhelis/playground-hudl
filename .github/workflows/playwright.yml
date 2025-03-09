@@ -22,7 +22,7 @@ jobs:
       run:
         echo "PLAYWRIGHT_VERSION=$(jq '.devDependencies["@playwright/test"]' package.json -r)" >> $GITHUB_ENV
     - name: Playwright version
-      run: ${{ env.PLAYWRIGHT_VERSION }}
+      run: echo ${{ env.PLAYWRIGHT_VERSION }}
     - name: Cache playwright binaries
       uses: actions/cache@v4
       id: playwright-cache
@@ -31,7 +31,7 @@ jobs:
           ~/.cache/ms-playwright
         key: ${{ runner.os }}-playwright-${{ env.PLAYWRIGHT_VERSION }}
     - name: Install Playwright Browsers for current OS and playwright version if not cached yet
-      run: npx playwright install --with-deps --no-shell chromium
+      run: npx playwright install --with-deps --only-shell chromium
       if: steps.playwright-cache.outputs.cache-hit != 'true'
     
     - name: Run Playwright tests

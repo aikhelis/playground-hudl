@@ -40,14 +40,12 @@ export default defineConfig({
     trace: process.env.CI ? "on" : "off",
   },
 
-
   /* Configure projects for major browsers */
   projects: [
     {
       name: "chromium",
       use: { 
         ...devices["Desktop Chrome"] ,
-        channel: 'chromium',
       },
     },
   ],
