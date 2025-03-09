@@ -19,10 +19,10 @@ jobs:
 
     - name: Extract Playwright version for caching browser executables
       id: playwright-version
-      run: |
+      run:
         echo "PLAYWRIGHT_VERSION=$(jq '.devDependencies["@playwright/test"]' package.json -r)" >> $GITHUB_ENV
-        echo playwright version 
-        echo ${{ env.PLAYWRIGHT_VERSION }}
+    - name: Playwright version
+      run: ${{ env.PLAYWRIGHT_VERSION }}
     - name: Cache playwright binaries
       uses: actions/cache@v4
       id: playwright-cache
