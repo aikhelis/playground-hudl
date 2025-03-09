@@ -28,7 +28,8 @@ export default defineConfig({
   reporter: process.env.CI
     ? [["list"], ["github"], ["html", { open: "never" }]]
     : "list",
-  /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
+  captureGitInfo: {commit: true, diff: true},
+    /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
     baseURL: process.env.BASE_URL ?? "",
@@ -38,6 +39,7 @@ export default defineConfig({
     /* Collect trace for all test runs. See https://playwright.dev/docs/trace-viewer */
     trace: process.env.CI ? "on" : "off",
   },
+
 
   /* Configure projects for major browsers */
   projects: [
