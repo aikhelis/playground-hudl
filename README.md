@@ -4,6 +4,7 @@ This repository is created as personal practice and refreshments on Playwright. 
 
 ## ToDo
 ✅ Add UI abstraction on top of emerged patterns: login page & common nav mechanism. Stay lean.
+✅ Upgrade playwright to 1.51 for the Copy Prompt feature in the html report on test failures.
 
 ## Running Tests 
 
