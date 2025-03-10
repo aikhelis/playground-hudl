@@ -4,9 +4,9 @@ let page: Page;
 
 // App navigation config
 const routes: { [key: string]: string } = {
-  base: "",
-  login: "login",
-  home: "home",
+  base: "/",
+  login: "/login",
+  home: "/home1",
 };
 
 const qaId = (id: string): string => `[data-qa-id="${id}"]`;
