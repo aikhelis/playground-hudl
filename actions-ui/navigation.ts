@@ -6,7 +6,7 @@ let page: Page;
 const routes: { [key: string]: string } = {
   base: "/",
   login: "/login",
-  home: "/home1",
+  home: "/home",
 };
 
 const qaId = (id: string): string => `[data-qa-id="${id}"]`;
